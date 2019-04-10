@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas> <button onclick="drawRect()">画矩形</button>
+    <button onclick="drawCircle()">画圆</button>
+    <button onclick="drawLine()">画线</button>
+    <button onclick="drawText()">画文字</button>
+    <button onclick="drawWindow()">画window</button>
+    <script>
+      var canvas = document.querySelector("#canvas");
+      var ctx = canvas.getContext("2d");
+      function drawRect() {
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(0, 0, 150, 75);
+      }
+
+      function drawLine() {
+        ctx.canvas = null;
+        ctx.beginPath();
+        for (let y = 10; y < 100; y += 10) {
+          ctx.moveTo(10, y);
+          ctx.lineTo(90, y);
+        }
+
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.fillStyle = "red";
+        var lindDash = ctx.getLineDash();
+      }
+
+      function drawCircle() {
+        ctx.beginPath();
+        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.fillStyle = "#cbd34f";
+        ctx.fill();
+      }
+
+      function drawText() {
+        let text = ctx.measureText("Hello world");
+        console.log(text);
+      }
+
+      function drawWindow() {
+        ctx.drawWindow(window, 0, 0, 100, 200, "rgb(255,255,255)");
+      }
+    </script>
+  </body>
+</html>
