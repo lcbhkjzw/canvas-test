@@ -6,15 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/codesandbox-app/static-template.git"
-  },
+  "repository": "git+https://github.com/codesandbox-app/static-template.git",
   "keywords": [],
   "author": "Ives van Hoorne",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codesandbox-app/static-template/issues"
   },
-  "homepage": "https://github.com/codesandbox-app/static-template#readme"
+  "homepage": "https://github.com/codesandbox-app/static-template#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.3"
+  }
 }
