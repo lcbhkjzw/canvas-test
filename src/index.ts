@@ -1,6 +1,5 @@
 var canvas = document.querySelector("#canvas") as HTMLCanvasElement;
 var ctx = canvas.getContext("2d");
-console.log(canvas.getContext('webgl'))
 function drawRect() {
   ctx.fillStyle = "#FF0000";
   ctx.fillRect(0, 0, 800, 400);
@@ -96,7 +95,6 @@ function webgl() {
   }
   const canvas = document.querySelector('#c') as HTMLCanvasElement;
   const gl = canvas.getContext("webgl");
-  console.log(gl)
   const vertexShaderSource = `
         // 一个属性值，将会从缓冲中获取数据
         attribute vec4 a_position;
@@ -115,7 +113,7 @@ function webgl() {
         
         void main() {
             // gl_FragColor是一个片断着色器主要设置的变量
-            gl_FragColor = vec4(1, 0, 0.5, 1); // 返回“瑞迪施紫色”
+            gl_FragColor = vec4(0, 0, 0.5, 1); // 返回“瑞迪施紫色”
         }
   `;
   var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
@@ -139,7 +137,7 @@ function webgl() {
     gl.deleteProgram(program);
   }
   var program = createProgram(gl, vertexShader, fragmentShader);
-  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  var positionAttributeLocation = gl.getAttribLocation(program, "a_position"); // 定义地址
   var positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
