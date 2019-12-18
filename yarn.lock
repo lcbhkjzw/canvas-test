@@ -5040,6 +5040,11 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.npm.taobao.org/tweetnacl/download/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
+twgl.js@^4.14.1:
+  version "4.14.1"
+  resolved "https://registry.npm.taobao.org/twgl.js/download/twgl.js-4.14.1.tgz#7e7b9afc66988cec84fa016c6d1656db63646078"
+  integrity sha1-fnua/GaYjOyE+gFsbRZW22NkYHg=
+
 type-check@~0.3.2:
   version "0.3.2"
   resolved "https://registry.npm.taobao.org/type-check/download/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
