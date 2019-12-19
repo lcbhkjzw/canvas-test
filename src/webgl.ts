@@ -66,37 +66,48 @@ function webgl() {
   for (let ii = 0; ii < 50; ++ii) {
     generateRect(
       gl,
-      randomInt(300), randomInt(300), randomInt(300), randomInt(300)
-    )
+      randomInt(300),
+      randomInt(300),
+      randomInt(300),
+      randomInt(300)
+    );
 
     gl.uniform4f(colorLocation, Math.random(), Math.random(), Math.random(), 1);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
-  let pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);
-  gl.readPixels(0,0, gl.drawingBufferWidth,gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-  console.log(pixels)
+  setTimeout(() => {
+    console.time('readPixels')
+    let pixels = new Uint8Array(
+      gl.drawingBufferWidth * gl.drawingBufferHeight * 4
+    );
+    gl.readPixels(
+      0,
+      0,
+      gl.drawingBufferWidth,
+      gl.drawingBufferHeight,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      pixels
+    );
+    console.timeEnd('readPixels')
+  }, 1000);
 }
 
-
-function generateRect (gl, x, y, width,height) {
+function generateRect(gl, x, y, width, height) {
   const x1 = x;
   const x2 = x + width;
   const y1 = y;
   const y2 = y + height;
 
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-    x1, y1,
-    x2, y1,
-    x1, y2,
-    x1, y2,
-    x2, y1,
-    x2, y2
-  ]), gl.STATIC_DRAW);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),
+    gl.STATIC_DRAW
+  );
 }
 
-function randomInt (range) {
+function randomInt(range) {
   return Math.floor(Math.random() * range);
 }
-
 
 /*******************  3d ******************/
