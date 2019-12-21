@@ -1,7 +1,6 @@
 import { createShader, createProgram } from "./utils/tools";
 
-export default /*******************  3d ******************/
-function webgl() {
+export default function webgl() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const gl = canvas.getContext("webgl");
   const vertexShaderSource = `
@@ -24,7 +23,5 @@ function webgl() {
   const program = createProgram(gl, vertexShader, fragmentShader);
 
   gl.useProgram(program);
-  gl.drawArrays(gl.POINTS, 0, 1)
+  gl.drawArrays(gl.POINTS, 0, 1);
 }
-
-/*******************  3d ******************/
