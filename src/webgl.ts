@@ -28,7 +28,7 @@ export default function webgl() {
   const positionAttribute = gl.getAttribLocation(program, "a_position");
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const position = [-0.2, 0.2];
+  const position = [-0.2, 0.2, 0,0,0.7,0.5];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
 
   gl.useProgram(program);
@@ -37,5 +37,5 @@ export default function webgl() {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
 
-  gl.drawArrays(gl.POINTS, 0, 1);
+  gl.drawArrays(gl.POINTS, 0, 3);
 }
