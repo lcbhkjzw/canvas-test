@@ -12,8 +12,12 @@ export default function webgl() {
     }
   `;
   const fragmentShaderSource = `
+    precision mediump float;
+
+    uniform vec4 u_color;
+
     void main() {
-      gl_FragColor = vec4(.0, .0, 1.0, 1.0);
+      gl_FragColor = u_color;
     }
   `;
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
@@ -28,14 +32,17 @@ export default function webgl() {
   const positionAttribute = gl.getAttribLocation(program, "a_position");
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const position = [-0.2, 0.2, 0,0,0.7,0.5];
+  const position = [-0.2, 0.2, 0, 0, 0.7, 0.5];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
+
+  const colorUniform = gl.getUniformLocation(program, "u_color");
 
   gl.useProgram(program);
   gl.enableVertexAttribArray(positionAttribute);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform4f(colorUniform, 0, 23, 43, 1);
 
   gl.drawArrays(gl.POINTS, 0, 3);
 }
