@@ -6,18 +6,22 @@ export default function webgl() {
   const vertexShaderSource = `
     attribute vec4 a_position;
 
+    attribute vec4 a_color;
+    varying vec4 v_color;
+
     void main() {
       gl_Position = a_position;
       gl_PointSize = 100.0;
+      v_color = a_color;
     }
   `;
   const fragmentShaderSource = `
     precision mediump float;
 
-    uniform vec4 u_color;
+    varying vec4 v_color;
 
     void main() {
-      gl_FragColor = u_color;
+      gl_FragColor = v_color;
     }
   `;
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
@@ -29,20 +33,38 @@ export default function webgl() {
   const program = createProgram(gl, vertexShader, fragmentShader);
 
   //传递顶点数据给shader
-  const positionAttribute = gl.getAttribLocation(program, "a_position");
+  const a_position = gl.getAttribLocation(program, "a_position");
+  const a_color = gl.getAttribLocation(program, "a_color");
+
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const position = [-0.2, 0.2, 0, 0, 0.7, 0.5];
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
-
-  const colorUniform = gl.getUniformLocation(program, "u_color");
+  const position = new Float32Array([
+    0.0,
+    0.5,
+    1.0,
+    0.0,
+    0.0, // (x,y) (r,g,b)
+    -0.5,
+    -0.5,
+    0.0,
+    1.0,
+    0.0,
+    0.5,
+    -0.5,
+    0.0,
+    0.0,
+    1.0
+  ]);
+  const BYTES_PER_ELEMENT = position.BYTES_PER_ELEMENT;
+  gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, position, a_color);
 
   gl.useProgram(program);
-  gl.enableVertexAttribArray(positionAttribute);
+  gl.enableVertexAttribArray(a_position);
+  gl.enableVertexAttribArray(a_color);
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
-  gl.uniform4f(colorUniform, 0, 23, 43, 1);
+  gl.vertexAttribPointer(a_position, 2, gl.FLOAT, false, 5 * BYTES_PER_ELEMENT, 0);
+  gl.vertexAttribPointer(a_color, 3, gl.FLOAT, false, 3 * BYTES_PER_ELEMENT, 2 * BYTES_PER_ELEMENT,)
 
   gl.drawArrays(gl.POINTS, 0, 3);
 }
