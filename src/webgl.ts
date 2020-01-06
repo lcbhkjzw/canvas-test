@@ -57,7 +57,7 @@ export default function webgl() {
   ]);
   const BYTES_PER_ELEMENT = position.BYTES_PER_ELEMENT;
   gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
-  gl.bufferData(gl.ARRAY_BUFFER, position, a_color);
+  gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
 
   gl.useProgram(program);
   gl.enableVertexAttribArray(a_position);
