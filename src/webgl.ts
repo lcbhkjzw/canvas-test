@@ -31,40 +31,28 @@ export default function webgl() {
     fragmentShaderSource
   );
   const program = createProgram(gl, vertexShader, fragmentShader);
+  gl.useProgram(program);
 
   //传递顶点数据给shader
   const a_position = gl.getAttribLocation(program, "a_position");
-  const a_color = gl.getAttribLocation(program, "a_color");
-
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const position = new Float32Array([
-    0.0,
-    0.5,
-    1.0,
-    0.0,
-    0.0, // (x,y) (r,g,b)
-    -0.5,
-    -0.5,
-    0.0,
-    1.0,
-    0.0,
-    0.5,
-    -0.5,
-    0.0,
-    0.0,
-    1.0
-  ]);
-  const BYTES_PER_ELEMENT = position.BYTES_PER_ELEMENT;
+  const position = new Float32Array([0.0, 0.5, -0.5, -0.5, 0.5, -0.5]);
   gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
-  gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
-
-  gl.useProgram(program);
   gl.enableVertexAttribArray(a_position);
+  gl.vertexAttribPointer(a_position, 2, gl.FLOAT, false, 0, 0);
+
+  const a_color = gl.getAttribLocation(program, "a_color");
+  const colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  const color = new Float32Array([1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]);
+  gl.bufferData(gl.ARRAY_BUFFER, color, gl.STATIC_DRAW);
+
   gl.enableVertexAttribArray(a_color);
 
-  gl.vertexAttribPointer(a_position, 2, gl.FLOAT, false, 5 * BYTES_PER_ELEMENT, 0);
-  gl.vertexAttribPointer(a_color, 3, gl.FLOAT, false, 3 * BYTES_PER_ELEMENT, 2 * BYTES_PER_ELEMENT,)
+  gl.vertexAttribPointer(a_color, 3, gl.FLOAT, false, 0, 0);
 
-  gl.drawArrays(gl.POINTS, 0, 3);
+  // gl.drawArrays(gl.TRIANGLES, 0, 3);
+  // gl.drawArrays(gl.TRIANGLE_FAN, 0, 3);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
 }
